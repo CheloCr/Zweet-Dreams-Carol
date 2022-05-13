@@ -6,11 +6,11 @@ canvas.width = 1024
 canvas.height = 576
 
 
-const image = new Image()
-image.src = "/images/gameMap.png"
+// movmiento
+const keys = {
+    ArrowUp:{pressed:false},
+    ArrowDown:{pressed:false},
+    ArrowLeft:{pressed:false},
+    ArrowRight:{pressed:false},
 
-image.onload = () => {
-    ctx.drawImage(image,-600,0)
 }
-
-

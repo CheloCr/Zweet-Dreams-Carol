@@ -21,20 +21,20 @@ class Boundary {
     }
 
     draw(){
-        ctx.fillStyle = 'red'
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.0)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
         ctx.fillRect(this.position.x,this.position.y,this.width,this.height)
     }
 }
 
 
-//todo LLENAMOS A WALLS SDE PAREDES Y LAS PINTAMOS CREANDO UN NEW Boundary
-const walls = []
-const offset = { // Esto permite que los limites tomen la misma dimension de mi BG
+//todo LLENAMOS A WALLS DE PAREDES Y LAS PINTAMOS CREANDO UN NEW Boundary
+const walls = [] // Se llena de todos los 1025 que hay en "Collision.js"
+const offset = { // Esto permite que los limites tomen la misma dimension del BG
     x: -770,
     y: -60
 }
-
-mapBound.forEach((row, i) => { // Este itera nuestro SubArray
+//todo Creando Array 2D
+mapBound.forEach((row, i) => { // Este itera nuestro SubArray de "Collision.js"
     row.forEach((symbol, j) => { // Este itera lo que se encuentra adentro del SubArray
         if ( symbol === 1025) // Como los Limites estan epresentados por "1025" con esto le dicimos que solo tome en cuenta los que tienen este numero
         walls.push(new Boundary({
@@ -117,43 +117,129 @@ const keys = {
     ArrowRight: {pressed:false}
 }
 
-//! Test para los Limites del escenario
-const testBoundary = new Boundary ({
-    position: {
-        x: 400,
-        y: 400
-    } })
-
-const movables = [backgroundSprite,testBoundary] // Variables que queremos que se muevan con el escenario
 
 
+const movables = [backgroundSprite, ...walls] // Variables que queremos que se muevan con el escenario
+
+//todo CHECAR COLISIONES
+function rectCollision ({rectangle1,rectangle2}) {
+    return (
+        rectangle1.position.x + rectangle1.width >= rectangle2.position.x && 
+        rectangle1.position.x <= rectangle2.position.x + rectangle2.width &&
+        rectangle1.position.y <= rectangle2.position.y + rectangle2.height &&
+        rectangle1.position.y + rectangle1.height >= rectangle2.position.y
+    )
+}
 
 //todo FUNCION PARA ANIMAR EL JUEGO (se crea un loop infinito)
 function updateGame (){
     requestAnimationFrame(updateGame)
     backgroundSprite.draw()
-    testBoundary.draw()
-    // walls.forEach(wall => {
-    //     wall.draw()
-    // })
+    walls.forEach(wall => {
+        wall.draw()
+
+        
+
+    })
     player.draw()
 
-    //todo CHECAR COLISIONES
-    if(
-        player.position.x + player.width >= testBoundary.position.x && 
-        player.position.x <= testBoundary.position.x + testBoundary.width &&
-        player.position.y <= testBoundary.position.y + testBoundary.height &&
-        player.position.y + player.height >= testBoundary.position.y
-        ){
-        console.log('TOCASTE!')
-    }
-
+    
     //todo CONDICIONAL PARA MOVER EL BG DEPENDIENDO DELA TECLA QUE SE APRIETE Y SU VALOR FALSE/TRUE
     //todo ESTO AFECTA A EL BG EN SU POSICION Y/X AUMENTANDO O QUITANDO
-    if(keys.ArrowUp.pressed && lastKey === 'ArrowUp' ) {movables.forEach(movable => {movable.position.y +=3})}
-    else if(keys.ArrowDown.pressed && lastKey === 'ArrowDown'){movables.forEach(movable => {movable.position.y -=3})}
-    else if(keys.ArrowLeft.pressed && lastKey === 'ArrowLeft'){movables.forEach(movable => {movable.position.x +=3})}
-    else if(keys.ArrowRight.pressed && lastKey === 'ArrowRight'){movables.forEach(movable => {movable.position.x -=3})}
+    let moving = true
+    if(keys.ArrowUp.pressed && lastKey === 'ArrowUp' ) {
+        for(let i = 0; i < walls.length; i++) {
+            //todo CHECAR COLISIONES
+            const wall = walls [i]
+            if(
+                rectCollision({
+                rectangle1:player,
+                rectangle2:{
+                    ...wall,
+                    position: {
+                    x:wall.position.x,
+                    y:wall.position.y + 3
+                }}
+                })
+                )  {
+                console.log('TOCASTE!')
+                moving = false
+                break
+            }
+        }
+        if(moving)
+        movables.forEach(movable => {movable.position.y +=3})}
+    else if(keys.ArrowDown.pressed && lastKey === 'ArrowDown'){
+        for(let i = 0; i < walls.length; i++) {
+            //todo CHECAR COLISIONES
+            const wall = walls [i]
+            if(
+                rectCollision({
+                rectangle1:player,
+                rectangle2:{
+                    ...wall,
+                    position: {
+                    x:wall.position.x,
+                    y:wall.position.y -3 
+                }}
+                })
+                )  {
+                console.log('TOCASTE!')
+                moving = false
+                break
+            }
+        }
+        if(moving)
+        movables.forEach(movable => {movable.position.y -=3})}
+
+
+    else if(keys.ArrowLeft.pressed && lastKey === 'ArrowLeft'){
+        for(let i = 0; i < walls.length; i++) {
+            //todo CHECAR COLISIONES
+            const wall = walls [i]
+            if(
+                rectCollision({
+                rectangle1:player,
+                rectangle2:{
+                    ...wall,
+                    position: {
+                    x:wall.position.x + 3,
+                    y:wall.position.y  
+                }}
+                })
+                )  {
+                console.log('TOCASTE!')
+                moving = false
+                break
+            }
+        }
+        if(moving)
+        movables.forEach(movable => {movable.position.x +=3})}
+
+
+    else if(keys.ArrowRight.pressed && lastKey === 'ArrowRight'){
+        for(let i = 0; i < walls.length; i++) {
+            //todo CHECAR COLISIONES
+            const wall = walls [i]
+            if(
+                rectCollision({
+                rectangle1:player,
+                rectangle2:{
+                    ...wall,
+                    position: {
+                    x:wall.position.x - 3,
+                    y:wall.position.y  
+                }}
+                })
+                )  {
+                console.log('TOCASTE!')
+                moving = false
+                break
+            }
+        }
+        if(moving)
+        
+        movables.forEach(movable => {movable.position.x -=3})}
 
 
 }

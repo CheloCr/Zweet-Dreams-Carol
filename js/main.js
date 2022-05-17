@@ -1,24 +1,40 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
 
+
+
+
+
 canvas.width = 1024
 canvas.height = 576
 
-//todo ITERAMOS NUESTRO ARREGLO DE COLISIONES
+//todo Creando Array 2D
 const mapBound = []
 for (let i = 0 ; i < collisions.length ; i += 70){
     mapBound.push(collisions.slice(i,70 + i))
 
 }
 
+//todo Creando Array 2D
+
+const zombieZonesMap = []
+for (let i = 0 ; i < zombieData.length ; i += 70){
+    zombieZonesMap.push(zombieData.slice(i,70 + i))
+}
+
+
+
+
+
+
 //todo LLENAMOS A WALLS DE PAREDES Y LAS PINTAMOS CREANDO UN NEW Boundary
 const walls = [] // Se llena de todos los 1025 que hay en "Collision.js"
 const offset = { // Esto permite que los limites tomen la misma dimension del BG
-    x: -770,
-    y: -60
+    x: -1470,
+    y: -700
 }
 
-//todo Creando Array 2D
+//todo Iteramos el Array 2D buscando por cada SubArray los "1025" para crear un nuevo límite
 mapBound.forEach((row, i) => { // Este itera nuestro SubArray de "Collision.js"
     row.forEach((symbol, j) => { // Este itera lo que se encuentra adentro del SubArray
         if ( symbol === 1025) // Como los Limites estan epresentados por "1025" con esto le dicimos que solo tome en cuenta los que tienen este numero
@@ -32,15 +48,32 @@ mapBound.forEach((row, i) => { // Este itera nuestro SubArray de "Collision.js"
     })
 })
 
-console.log(walls)
+//todo Iteramos el Array 2D buscando por cada SubArray los "1025" para crear una nueva zona de batalla
+const battleZones = []
+
+zombieZonesMap.forEach((row, i) => { // Este itera nuestro SubArray de "Collision.js"
+    row.forEach((symbol, j) => { // Este itera lo que se encuentra adentro del SubArray
+        if ( symbol === 1025) // Como los Limites estan epresentados por "1025" con esto le dicimos que solo tome en cuenta los que tienen este numero
+        battleZones.push(new Boundary({
+                position:{
+                    x: j * Boundary.width + offset.x,
+                 y: i * Boundary.height + offset.y
+                }
+            })
+        )
+    })
+})
+
+console.log(battleZones)
+
+// ctx.fillStyle = 'White'
+// ctx.fillRect(0,0,canvas.width,canvas.height)
 
 
-ctx.fillStyle = 'White'
-ctx.fillRect(0,0,canvas.width,canvas.height)
-
+// ------------------ WORLD   ------------------ //
 const world = new Image()
 world.src = '/images/LEVL5.png'
-
+// ------------------ PLAYER   ------------------ //
 const playerDown = new Image()
 playerDown.src = '/images/playerDown.png'
 
@@ -52,6 +85,10 @@ playerLeft.src = '/images/playerLeft.png'
 
 const playerRight = new Image()
 playerRight.src = '/images/playerRight.png'
+
+
+
+
 
 
 
@@ -76,6 +113,12 @@ const player = new Sprite ({
     }
 })
 
+
+
+
+
+
+
 const backgroundSprite = new Sprite({
     position:{
         x:offset.x,
@@ -95,7 +138,7 @@ const keys = {
 
 
 
-const movables = [backgroundSprite, ...walls] // Variables que queremos que se muevan con el escenario
+const movables = [backgroundSprite, ...walls,...battleZones] // Variables que queremos que se muevan con el escenario
 
 //todo CHECAR COLISIONES
 function rectCollision ({rectangle1,rectangle2}) {
@@ -107,20 +150,95 @@ function rectCollision ({rectangle1,rectangle2}) {
     )
 }
 
+//todo activacion de batalla
+const battle = {
+    activated:false
+}
+
 //todo FUNCION PARA ANIMAR EL JUEGO (se crea un loop infinito)
 function updateGame (){
-    requestAnimationFrame(updateGame)
+    const requestID =  window.requestAnimationFrame(updateGame)
+    console.log(requestID)
     backgroundSprite.draw()
     walls.forEach(wall => {
         wall.draw()
+    })
+
+    battleZones.forEach(battleZone => {
+        battleZone.draw()
     })
     player.draw()
 
     
     //todo CONDICIONAL PARA MOVER EL BG DEPENDIENDO DELA TECLA QUE SE APRIETE Y SU VALOR FALSE/TRUE
     //todo ESTO AFECTA A EL BG EN SU POSICION Y/X AUMENTANDO O QUITANDO
+
+
+    //todo esto actuva las zonas de batalla
     let moving = true
     player.moving = false
+
+    if(battle.activated) return // si el modo batalla esta activado entonces no permite seguir co el codigo abajo y se detiene todo
+
+    if(keys.ArrowDown.pressed||keys.ArrowUp.pressed||keys.ArrowLeft.pressed||keys.ArrowRight.pressed){
+        for(let i = 0; i < battleZones.length; i++) {
+            //todo CHECAR COLISIONES
+            const battleZone = battleZones [i]
+            const overZoneArea = // Esto nos permite sacar la zona que entrechoca el escenario de batalla y el personaje para de esa forma poder limitar nuestra zona de batalla sin activar al rozar el personaje.
+            (Math.min(
+                player.position.x + player.width,
+                battleZone.position.x + battleZone.width
+            ) -
+            Math.max(player.position.x,battleZone.position.x)) * 
+            (Math.min (
+            player.position.y + player.height,
+            battleZone.position.y + battleZone.height
+            ) -
+            Math.max(player.position.y,battleZone.position.y))
+
+            if(
+                rectCollision({
+                        rectangle1:player,
+                     rectangle2:battleZone
+                    }) && overZoneArea > (player.width * player.height) / 2 
+                    && Math.random() < 0.08
+                ) {
+                    console.log('Batalla Zombie!!!!!')
+                    // desactivar loop animado
+                    window.cancelAnimationFrame(requestID)
+                    battle.activated = true // activamos modo batalla 
+                    gsap.to(".battle", { // SE USA LIBRERIA GSAP PARA ANIMACION DE BATALLA
+                        opacity:1,
+                        repeat:3,
+                        yoyo:true,
+                        duration:0.4,
+                        onComplete(){
+                            gsap.to(".battle", {
+                                opacity:1,
+                                duration:0.4,
+                                onComplete(){
+
+                                    // Activar un nuevo loop animado
+                                    battleZombie()
+                                    gsap.to(".battle", {
+                                        opacity:0,
+                                        duration:0.4
+                                    })
+                                }
+                            })
+
+                            
+                            
+
+                            
+                        }
+                    })
+                break
+            }
+        }
+    }
+
+    
     if(keys.ArrowUp.pressed && lastKey === 'ArrowUp' ) {
         player.moving = true
         player.image = player.sprites.up
@@ -143,6 +261,11 @@ function updateGame (){
                 break
             }
         }
+
+       
+
+
+        
         if(moving)
         movables.forEach(movable => {movable.position.y +=3})}
 
@@ -227,6 +350,25 @@ function updateGame (){
 
 }
 updateGame()
+
+// ------------------ BG BATTLE   ------------------ //
+const battleBGImage = new Image()
+battleBGImage.src = "/images/battlezone.png"
+
+const battleBgSprite = new Sprite({position: {
+        x:0,
+        y:0
+    },
+    image: battleBGImage
+})
+
+//TODO FUNCION PARA CAMPO DE BATALLA
+function battleZombie(){
+
+    window.requestAnimationFrame(battleZombie)
+    console.log('NUEVA BATALLA')
+    battleBgSprite.draw()
+}
 
 
 let lastKey = ''

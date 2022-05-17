@@ -10,6 +10,8 @@ class Sprite {
         }
         this.moving = false
         this.sprites = sprites
+
+
         
 
     }
@@ -39,7 +41,13 @@ class Sprite {
         }
 
     }
+
+
+
+    
 }
+
+
 
 
 
@@ -53,7 +61,7 @@ class Boundary {
     }
 
     draw(){
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.0)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.6)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
         ctx.fillRect(this.position.x,this.position.y,this.width,this.height)
     }
 }

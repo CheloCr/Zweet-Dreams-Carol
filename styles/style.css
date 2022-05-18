@@ -1,5 +1,9 @@
+*{
+    font-family: 'Press Start 2P', cursive;
+}
+
 body{
-    background-color: #333;
+    background-color: black;
     
 }
 
@@ -19,3 +23,114 @@ div.battle{
     pointer-events: none;
 
 }
+
+div.attack{
+    height: 70%;
+    display: grid;
+}
+
+div.battle-bar{
+    background-color: white;
+    width: 200px;
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+
+div.types{
+    height: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top: 3px solid black;
+    
+}
+
+button{
+    border: 0;
+    font-size: 13px;
+    background-color: rgb(246, 195, 249);
+}
+
+button:hover{
+    background-color: rgb(213, 100, 217);
+    cursor: pointer;
+}
+
+h1{
+    font-size: 16px;
+}
+
+div.top-box{
+    width: 250px;
+    padding: 6px;
+    background-color: white;
+    border-radius: 10px;
+    border: 3px solid black;
+    position: absolute;
+    top:150px;
+    left: 550px;
+}
+
+h2{
+    font-size: 16px;
+}
+
+div.enemyLive{
+    position: relative;
+}
+
+div.enemy-live1{
+    height: 7px;
+    background: rgba(249, 153, 153, 0.81);
+}
+
+div.enemy-live2{
+    height: 7px;
+    width: 50%;
+    background: green;
+    position: absolute;
+    top:0;
+    right: 0;
+    left: 0;
+}
+
+
+div.bottom-box{
+    width: 250px;
+    padding: 6px;
+    background-color: white;
+    border-radius: 10px;
+    border: 3px solid black;
+    position: absolute;
+    top:350px;
+    left: 350px;
+}
+
+h2{
+    font-size: 16px;
+}
+
+div.caroLive{
+    position: relative;
+}
+
+div.caro-live1{
+    height: 7px;
+    background: rgba(249, 153, 153, 0.81);
+}
+
+div.caro-live2{
+    height: 7px;
+    width: 50%;
+    background: green;
+    position: absolute;
+    top:0;
+    right: 0;
+    left: 0;
+}
+

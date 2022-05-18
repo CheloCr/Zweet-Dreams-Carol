@@ -102,7 +102,8 @@ const player = new Sprite ({
     },
     image:playerDown,
     frames: {
-        max:4
+        max:4,
+        hold:10
     },
     sprites:{
         up: playerUp,
@@ -176,7 +177,7 @@ function updateGame (){
 
     //todo esto actuva las zonas de batalla
     let moving = true
-    player.moving = false
+    player.animate = false
 
     if(battle.activated) return // si el modo batalla esta activado entonces no permite seguir co el codigo abajo y se detiene todo
 
@@ -201,7 +202,7 @@ function updateGame (){
                         rectangle1:player,
                      rectangle2:battleZone
                     }) && overZoneArea > (player.width * player.height) / 2 
-                    && Math.random() < 0.08
+                    && Math.random() < 0.3
                 ) {
                     console.log('Batalla Zombie!!!!!')
                     // desactivar loop animado
@@ -240,7 +241,7 @@ function updateGame (){
 
     
     if(keys.ArrowUp.pressed && lastKey === 'ArrowUp' ) {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.up
         for(let i = 0; i < walls.length; i++) {
             //todo CHECAR COLISIONES
@@ -270,7 +271,7 @@ function updateGame (){
         movables.forEach(movable => {movable.position.y +=3})}
 
     else if(keys.ArrowDown.pressed && lastKey === 'ArrowDown'){
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.down
         for(let i = 0; i < walls.length; i++) {
             //todo CHECAR COLISIONES
@@ -296,7 +297,7 @@ function updateGame (){
 
 
     else if(keys.ArrowLeft.pressed && lastKey === 'ArrowLeft'){
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.left
         for(let i = 0; i < walls.length; i++) {
             //todo CHECAR COLISIONES
@@ -322,7 +323,7 @@ function updateGame (){
 
 
     else if(keys.ArrowRight.pressed && lastKey === 'ArrowRight'){
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.right
         for(let i = 0; i < walls.length; i++) {
             //todo CHECAR COLISIONES
@@ -349,18 +350,63 @@ function updateGame (){
 
 
 }
-updateGame()
+// updateGame()
+
+
+
+
+
 
 // ------------------ BG BATTLE   ------------------ //
 const battleBGImage = new Image()
-battleBGImage.src = "/images/battlezone.png"
+battleBGImage.src = "/images/BattleZone2.png"
 
 const battleBgSprite = new Sprite({position: {
         x:0,
         y:0
     },
-    image: battleBGImage
+    image: battleBGImage,
 })
+
+
+// ------------------ Creando imagenes de enemigos en batalla  ------------------ //
+
+const zombieImg = new Image()
+zombieImg.src = "/images/monsterSprite-removebg-preview.png"
+
+const caroImg = new Image()
+caroImg.src = "/images/playerUp.png"
+
+ //-------------Zombie
+const zombieEnemy = new Sprite({
+    position:{
+        x:860,
+        y:250
+    },
+    image:zombieImg,
+    frames: {
+        max: 4,
+        hold:20
+    },
+    animate: true
+})
+
+//-------------Caro
+
+const caro = new Sprite({
+    position:{
+        x:690,
+        y:480
+    },
+    image:caroImg,
+    frames: {
+        max: 4,
+        hold:20
+    },
+    animate: true
+})
+
+
 
 //TODO FUNCION PARA CAMPO DE BATALLA
 function battleZombie(){
@@ -368,7 +414,31 @@ function battleZombie(){
     window.requestAnimationFrame(battleZombie)
     console.log('NUEVA BATALLA')
     battleBgSprite.draw()
+    zombieEnemy.draw()
+    caro.draw()
 }
+
+// updateGame()
+battleZombie()
+
+
+
+//TODO COMENZAMOS A SELECCIONAR LOS ATTAQUES
+document.querySelectorAll('button').forEach((button) => { // N
+
+    button.addEventListener('click', () => {
+            caro.attack({ attack: {
+                name:'Punch',
+                damage : 10,
+                type: 'Normal'
+            },
+            recipient: zombieEnemy
+        })
+    })
+    
+})
+
+
 
 
 let lastKey = ''

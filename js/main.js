@@ -367,7 +367,7 @@ const battleBgSprite = new Sprite({position: {
 // ------------------ INSTANCIA ZOMBIE   ------------------ //
 
 const zombieEnemyImg = new Image()
-zombieEnemyImg.src = "./images/draggleSprite.png"
+zombieEnemyImg.src = "images/draggleSprite.png"
 
 const zombie = new Sprite ({
         position: {
@@ -388,7 +388,7 @@ const zombie = new Sprite ({
 // ------------------ INSTANCIA CARO   ------------------ //
 
 const caroImg = new Image()
-caroImg.src = "/images/playerUp.png"
+caroImg.src = "images/playerUp.png"
 
 const caro = new Sprite ({
         position: {

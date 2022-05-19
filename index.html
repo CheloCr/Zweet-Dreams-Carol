@@ -19,31 +19,35 @@
 
    <div class="container">
        <div class="battle"></div>
+       
 
             <div class="top-box">
                 <h2>Motto Meme!</h2>
                 <div class="enemyLive">
-                    <div class="enemy-live1"></div>
-                    <div class="enemy-live2"></div>
+                    <div class="enemyFull"></div>
+                    <div class="enemyLoss" id="enemyHealthBar"></div>
                 </div>
             </div> 
 
             <div class="bottom-box">
                 <h2>Caggo!</h2>
                 <div class="caroLive">
-                    <div class="caro-live1"></div>
-                    <div class="caro-live2"></div>
+                    <div class="caroFull"></div>
+                    <div class="caroLoss" id="playerHealthBar"></div>
                 </div>
             </div> 
-        <canvas></canvas>
+
+            <canvas></canvas>
 
 
-        <div class="battle-bar">
-            <div class="attack">
-                <button>Punch</button>
-                <button>attack2</button>
-                <button>attack3</button>
-                <button>attack3</button>
+            <div class="battle-bar">
+
+                <div class="dialoguebar" id="dialogueBox"></div>
+
+                
+                <div class="attack" id="atacksBox">
+               
+                
             </div>
             <div class="types">
                 <h1>Attack type</h1>
@@ -61,8 +65,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="/js/ZombieZones.js"></script>
     <script src="/js/collision.js"></script>
+    <script src="/js/attacks.js"></script>
+    <script src="/js/monsters.js"></script>
     <script src="/js/classes.js"></script>
    <script src="/js/main.js"></script>
+   <script src="/js/battle.js"></script>
    
    <!-- <script src="/js/classes.js"></script> -->
     

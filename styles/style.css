@@ -81,22 +81,35 @@ h2{
 }
 
 div.enemyLive{
+    height: 5px;
     position: relative;
+    margin-top: 3px ;
 }
 
-div.enemy-live1{
+div.enemyFull{
     height: 7px;
-    background: rgba(249, 153, 153, 0.81);
+    background: #ccc;
+    margin-top: 3px ;
 }
 
-div.enemy-live2{
+div.enemyLoss{
     height: 7px;
-    width: 50%;
     background: green;
     position: absolute;
     top:0;
-    right: 0;
     left: 0;
+    right: 0;
+    
+}
+
+div#enemyLoss{
+    height: 7px;
+    background: green;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+    
 }
 
 
@@ -116,21 +129,51 @@ h2{
 }
 
 div.caroLive{
+    
     position: relative;
+    
 }
 
-div.caro-live1{
+div.caroFull{
     height: 7px;
-    background: rgba(249, 153, 153, 0.81);
+    background: #ccc;
+    margin-top: 3px ;
 }
 
-div.caro-live2{
+div.caroLoss{
     height: 7px;
-    width: 50%;
     background: green;
     position: absolute;
     top:0;
-    right: 0;
     left: 0;
+    right: 0;
+}
+
+div#caroLoss{
+    height: 7px;
+    background: green;
+    position: absolute;
+    top:0;
+    left: 0;
+    right: 0;
+}
+
+
+div.dialoguebar{
+    border: 2px solid red;
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    background-color: white;
+    padding: 12px;
+    display: none;
+    
+
+}
+
+#dialogueBox{
+    cursor: pointer;
 }
 

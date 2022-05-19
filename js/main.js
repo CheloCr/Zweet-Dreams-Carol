@@ -64,7 +64,7 @@ zombieZonesMap.forEach((row, i) => { // Este itera nuestro SubArray de "Collisio
     })
 })
 
-console.log(battleZones)
+
 
 // ctx.fillStyle = 'White'
 // ctx.fillRect(0,0,canvas.width,canvas.height)
@@ -84,7 +84,7 @@ const playerLeft = new Image()
 playerLeft.src = 'images/playerLeft.png'
 
 const playerRight = new Image()
-playerRight.src = '/images/playerRight.png'
+playerRight.src = 'images/playerRight.png'
 
 
 
@@ -159,7 +159,7 @@ const battle = {
 //todo FUNCION PARA ANIMAR EL JUEGO (se crea un loop infinito)
 function updateGame (){
     const requestID =  window.requestAnimationFrame(updateGame)
-    console.log(requestID)
+   
     backgroundSprite.draw()
     walls.forEach(wall => {
         wall.draw()
@@ -204,7 +204,6 @@ function updateGame (){
                     }) && overZoneArea > (player.width * player.height) / 2 
                     && Math.random() < 0.08
                 ) {
-                    console.log('Batalla Zombie!!!!!')
                     // desactivar loop animado
                     window.cancelAnimationFrame(requestID)
                     battle.activated = true // activamos modo batalla 
@@ -257,7 +256,7 @@ function updateGame (){
                 }}
                 })
                 )  {
-                console.log('TOCASTE!')
+                
                 moving = false
                 break
             }
@@ -287,7 +286,7 @@ function updateGame (){
                 }}
                 })
                 )  {
-                console.log('TOCASTE!')
+                
                 moving = false
                 break
             }
@@ -313,7 +312,7 @@ function updateGame (){
                 }}
                 })
                 )  {
-                console.log('TOCASTE!')
+                
                 moving = false
                 break
             }
@@ -339,7 +338,7 @@ function updateGame (){
                 }}
                 })
                 )  {
-                console.log('TOCASTE!')
+                
                 moving = false
                 break
             }
@@ -380,7 +379,9 @@ const zombie = new Sprite ({
             max:4,
             hold:10
     },
-        animate:true
+        animate:true,
+        isEnemy:true
+
 })
 
 
@@ -407,7 +408,7 @@ const caro = new Sprite ({
 //TODO FUNCION PARA BATALLA ZOMBIE
 function battleZombie(){
     window.requestAnimationFrame(battleZombie)
-    console.log('NUEVA BATALLA')
+    
     battleBgSprite.draw()
     zombie.draw()
     caro.draw()
@@ -416,6 +417,21 @@ function battleZombie(){
 
 battleZombie()
 // updateGame()
+
+
+document.querySelectorAll('button').forEach(button => {
+    button.addEventListener('click', (event) =>{
+        console.log(event.currentTarget.innerHTML)
+                caro.attack({ 
+                    attack: {
+                name:'Abrazo',
+                damage:10,
+             type: 'Normal'
+            },
+            recipient:zombie
+        })
+    })
+})
 
 
 let lastKey = ''

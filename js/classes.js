@@ -182,7 +182,7 @@ class Boundary {
     }
 
     draw(){
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.2)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.0)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
         ctx.fillRect(this.position.x,this.position.y,this.width,this.height)
     }
 }

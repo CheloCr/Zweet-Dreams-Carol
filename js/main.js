@@ -219,6 +219,7 @@ function updateGame (){
                                 onComplete(){
 
                                     // Activar un nuevo loop animado
+                                    initBattle()
                                     battleZombie()
                                     gsap.to(".battle", {
                                         opacity:0,
@@ -351,87 +352,7 @@ function updateGame (){
 }
 // updateGame()
 
-// ------------------ BG BATTLE   ------------------ //
-const battleBGImage = new Image()
-battleBGImage.src = "images/battleBackground.png"
 
-const battleBgSprite = new Sprite({position: {
-        x:0,
-        y:0
-    },
-    image: battleBGImage
-})
-
-//TODO FUNCION PARA CAMPO DE BATALLA
-
-// ------------------ INSTANCIA ZOMBIE   ------------------ //
-
-const zombieEnemyImg = new Image()
-zombieEnemyImg.src = "images/draggleSprite.png"
-
-const zombie = new Sprite ({
-        position: {
-        x:790,
-        y:100
-    },
-        image:zombieEnemyImg,
-        frames: {
-            max:4,
-            hold:10
-    },
-        animate:true,
-        isEnemy:true
-
-})
-
-
-// ------------------ INSTANCIA CARO   ------------------ //
-
-const caroImg = new Image()
-caroImg.src = "images/playerUp.png"
-
-const caro = new Sprite ({
-        position: {
-        x:400,
-        y:300
-    },
-        image:caroImg,
-        frames: {
-            max:4,
-            hold:10
-    },
-        animate:true
-})
-
-
-
-//TODO FUNCION PARA BATALLA ZOMBIE
-function battleZombie(){
-    window.requestAnimationFrame(battleZombie)
-    
-    battleBgSprite.draw()
-    zombie.draw()
-    caro.draw()
-    
-}
-
-battleZombie()
-// updateGame()
-
-
-document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', (event) =>{
-        console.log(event.currentTarget.innerHTML)
-                caro.attack({ 
-                    attack: {
-                name:'Abrazo',
-                damage:10,
-             type: 'Normal'
-            },
-            recipient:zombie
-        })
-    })
-})
 
 
 let lastKey = ''

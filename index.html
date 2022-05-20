@@ -20,48 +20,51 @@
    <div class="container">
         <div class="battle"></div> <!-- Id overlappingDiv -->
 
-        <!-- Cuadro de vida Enemy -->
-        <div class="topBox">
-            <h1>Motto Meme</h1>
-            <div class="healthbox1">
-                <div class="helathbar1"></div>
-                <div class="helathbar11" id="enemyHealthBar"></div>
-            </div>
-        </div>
-
-        <!-- Cuadro de vida Enemy -->
-        <div class="bottomBox">
-            <h1>Caggo</h1>
-            <div class="healthbox2">
-                <div class="helathbar2"></div>
-                <div class="helathbar22" id="playerHealthBar"></div>
-            </div>
-        </div>
-
-
-
-
-
+       
 
         <canvas></canvas>
 
+        <div id="userInterface">
 
-
-
-
-
-
-        <div class="box">
-            <div class="attackContainer">
-                <button>Patada Berrinchuda</button>
-                <button>Grito</button>
+            <!-- Cuadro de vida Enemy -->
+            <div class="topBox">
+                <h1>Motto Meme</h1>
+                <div class="healthbox1">
+                    <div class="helathbar1"></div>
+                    <div class="helathbar11" id="enemyHealthBar"></div>
+                </div>
             </div>
 
-            <div class="attackType">
-                <h1>AttackType</h1>
+            <!-- Cuadro de vida Enemy -->
+            <div class="bottomBox">
+                <h1>Caggo</h1>
+                <div class="healthbox2">
+                    <div class="helathbar2"></div>
+                    <div class="helathbar22" id="playerHealthBar"></div>
+                </div>
             </div>
 
-        </div> <!-- barra blanca de ataques -->
+
+
+
+
+
+
+            <div class="box">
+
+                <div class="textContainer" id="dialogueBox">sdfsdf</div>
+
+                <div class="attackContainer" id="attacksBox">
+                
+                </div>
+
+                <div class="attackType">
+                <h1 id="attackType">AttackType</h1>
+                </div>
+
+                </div> <!-- barra blanca de ataques -->
+
+        </div>
     </div>
 
 
@@ -72,11 +75,14 @@
 
     <!-- esta libreria nos ayudra a realizar las animaciones -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" integrity="sha512-H6cPm97FAsgIKmlBA4s774vqoN24V5gSQL4yBTDOY2su2DeXZVhQPxFK4P6GPdnZqM9fg1G3cMv5wD7e6cFLZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="js/ZombieZones.js"></script>
-    <script src="js/collision.js"></script>
-    <script src="js/attacks.js"></script>
-    <script src="js/classes.js"></script>
-   <script src="js/main.js"></script>
+    
+    <script src="/js/ZombieZones.js"></script>
+    <script src="/js/collision.js"></script>
+    <script src="/js/attacks.js"></script>
+    <script src="/js/monsters.js"></script>
+    <script src="/js/classes.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/battle.js"></script>
    
    <!-- <script src="/js/classes.js"></script> -->
     

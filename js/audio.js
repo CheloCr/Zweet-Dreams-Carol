@@ -1,6 +1,6 @@
 const audio = {
     Map: new Howl({
-        src: '/audio/No hay monstruos   Canciones infantiles   LittleBabyBu.wav',
+        src: 'audio/No hay monstruos   Canciones infantiles   LittleBabyBu.wav',
         html5:true,
         volume:0.2
     }),

@@ -75,7 +75,9 @@ function initBattle(){
                         gsap.to('.battle', {
                             opacity:0
                         })
-                        battle.initiaded = false
+
+                        battle.activated = false
+
                         audio.Map.play()
                     }
                 })
@@ -123,7 +125,7 @@ function initBattle(){
                                 opacity:0
                             })
 
-                            battle.initiaded = false
+                            battle.activated = false
                             audio.Map.play()
                         }
                     })

@@ -1,6 +1,6 @@
 // ------------------ BG BATTLE   ------------------ //
 const battleBGImage = new Image()
-battleBGImage.src = "images/battleBackground.png"
+battleBGImage.src = "images/BG.jpg"
 
 const battleBgSprite = new Sprite({position: {
         x:0,

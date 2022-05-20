@@ -18,11 +18,53 @@ button:hover{
 
 body{
     background-color: #333;
+    display: flex;
+    justify-content: center;
+    
 }
+
+div.info{
+    width: 500px;
+    height: 500px;
+    
+}
+div.container2{
+    width: 30%;
+    background-color: white;
+    background-size:cover;
+    background-repeat: no-repeat;
+    
+    padding: 25px;
+    border-radius: 50px 0 0 50px ;
+}
+
+div.info>img{
+    margin-left: 190px;
+    margin-top: 50px;
+    width: 130px;
+    height: 100px;
+}
+
+p{
+    padding: 10px;
+    font-size: small;
+    text-align: center;
+}
+
+
+
+
+
+
 /* contenedor de batalla */
 div.container{
     display: inline-block;
     position: relative;
+    
+}
+
+canvas{
+    border-radius: 0 50px 50px 0 ;
 }
 /* barra de ataques */
 div.battle{
@@ -144,6 +186,12 @@ div.textContainer{
 
 }
 
+
+
 div#userInterface{
     display: none;
 }
+
+
+/* ----------------------------------------------------------------------------------------- */
+

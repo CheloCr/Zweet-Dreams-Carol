@@ -4,7 +4,7 @@ const monsters = {
     Caggo: {
         position: {
             x:400,
-            y:300
+            y:350
         },
             image: {
              src:'images/playerUp.png'},
@@ -18,8 +18,8 @@ const monsters = {
     },
     Zombie: {
             position: {
-            x:790,
-            y:100
+            x:690,
+            y:200
         },
             image:{
                 src:'images/draggleSprite.png'},

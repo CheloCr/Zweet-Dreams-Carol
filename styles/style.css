@@ -143,3 +143,7 @@ div.textContainer{
     cursor: pointer;
 
 }
+
+div#userInterface{
+    display: none;
+}

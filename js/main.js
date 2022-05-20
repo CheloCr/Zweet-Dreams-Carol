@@ -4,7 +4,6 @@ const ctx = canvas.getContext('2d')
 
 
 
-
 canvas.width = 1024
 canvas.height = 576
 
@@ -206,6 +205,10 @@ function updateGame (){
                 ) {
                     // desactivar loop animado
                     window.cancelAnimationFrame(requestID)
+
+                    audio.Map.stop()
+                    audio.initBattle.play()
+                    audio.battle.play()
                     battle.activated = true // activamos modo batalla 
                     gsap.to(".battle", { // SE USA LIBRERIA GSAP PARA ANIMACION DE BATALLA
                         opacity:1,
@@ -391,6 +394,14 @@ window.addEventListener('keyup', (event) => {
         case 'ArrowRight' :
             keys.ArrowRight.pressed = false 
         break
+    }
+})
+
+let clicked = false
+addEventListener('click', () => {
+    if(!clicked){
+    audio.Map.play()
+    clicked = true
     }
 })
 

@@ -78,6 +78,8 @@ class Monster extends Sprite {
         gsap.to(this, {
             opacity: 0
         })
+        audio.battle.stop()
+        audio.victory.play()
     }
 
     
@@ -100,9 +102,9 @@ class Monster extends Sprite {
         switch (attack.name) {
 
                 case 'Fireball':
-
+                audio.initFireBall.play()
                 const fireballImg = new Image()
-                fireballImg.src = '/images/fireball.png'
+                fireballImg.src = 'images/fireball.png'
 
                 const fireball = new Sprite({
                     position: {
@@ -115,7 +117,8 @@ class Monster extends Sprite {
                         hold:10
                     },
                     animate:true,
-                    rotation
+                    rotation: 1
+                    
                 })
 
                 
@@ -127,6 +130,7 @@ class Monster extends Sprite {
                     onComplete: () => {
 
                          //Aqui es donde se golpea al enemigo
+                         audio.fireBallHit.play()
                     gsap.to(healthBar, {
                         width: recipient.health + '%'
                         } )
@@ -170,6 +174,10 @@ class Monster extends Sprite {
                 onComplete : () => {
 
                     //Aqui es donde se golpea al enemigo
+
+                    audio.tackleHit.play()
+
+
                     gsap.to(healthBar, {
                     width: recipient.health + '%'
                     } )
@@ -200,18 +208,6 @@ class Monster extends Sprite {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 class Boundary {
     static width = 48
     static height = 48
@@ -222,7 +218,7 @@ class Boundary {
     }
 
     draw(){
-        ctx.fillStyle = 'rgba(255, 0, 0, 0.2)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
+        ctx.fillStyle = 'rgba(255, 0, 0, 0.0)' // Se pintan cuadros de colisiones y se dejan transparentes para que no se noten 
         ctx.fillRect(this.position.x,this.position.y,this.width,this.height)
     }
 }

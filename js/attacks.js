@@ -8,7 +8,7 @@ const attacksArray = {
 
     Fireball: {
         name:'Fireball',
-        damage:60,
+        damage:80,
         type: 'Fire',
         color: 'red'
     },

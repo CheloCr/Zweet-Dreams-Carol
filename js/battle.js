@@ -35,7 +35,7 @@ function initBattle(){
     document.querySelector('#enemyHealthBar').style.width = '100%'
     document.querySelector('#playerHealthBar').style.width = '100%'
     document.querySelector('#attacksBox').replaceChildren()
-    
+
     zombie = new Monster (monsters.Zombie)
     caro = new Monster (monsters.Caggo)
     renderedSprites = [zombie, caro]
@@ -49,7 +49,7 @@ function initBattle(){
 
 
     document.querySelectorAll('button').forEach ((button) => {
-    
+
         button.addEventListener('click', (e) => {
 
         const selectedAttack = attacksArray[e.currentTarget.innerHTML]
@@ -76,6 +76,7 @@ function initBattle(){
                             opacity:0
                         })
                         battle.initiaded = false
+                        audio.Map.play()
                     }
                 })
 
@@ -83,7 +84,7 @@ function initBattle(){
             })
         }
 
-        
+
 
         queue.push(() => {
 
@@ -117,16 +118,17 @@ function initBattle(){
                             cancelAnimationFrame(battleAnimationId)
                             updateGame()
                             document.querySelector('#userInterface').style.display = 'none'
-    
+
                             gsap.to('.battle', {
                                 opacity:0
                             })
 
                             battle.initiaded = false
+                            audio.Map.play()
                         }
                     })
-    
-    
+
+
                 })
             })
         }
@@ -153,11 +155,11 @@ function battleZombie(){
     renderedSprites.forEach(sprite => {
     sprite.draw()
     })
-    
+
 }
-initBattle()
-battleZombie()
-// updateGame()
+// initBattle()
+// battleZombie()
+updateGame()
 
 
 
@@ -169,5 +171,5 @@ document.querySelector("#dialogueBox").addEventListener('click', (event) => {
         queue[0]()
         queue.shift()
     }else event.currentTarget.style.display = 'none'
-    
+
 })
